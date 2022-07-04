@@ -19,7 +19,7 @@ const STYLE = {
 
 const STYLE_INNER = {
   paddingTop: 5,
-}
+};
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -66,7 +66,7 @@ export default class HomePage extends Component {
       <Box key={key} sx={STYLE}>
         <CustomAppBar />
         <Box sx={STYLE_INNER}>
-        <DashboardPage />
+          <DashboardPage />
         </Box>
         <HomePageBottomNavigation
           onSelectLanguage={this.onSelectLanguage.bind(this)}
