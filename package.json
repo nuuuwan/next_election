@@ -1,6 +1,6 @@
 {
-  "name": "news_lk_app",
-  "homepage": "https://nuuuwan.github.io/news_lk_app",
+  "name": "next_election",
+  "homepage": "https://nuuuwan.github.io/next_election",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,11 +20,15 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-leaflet": "^4.0.0",
+    "react-qr-code": "^2.0.7",
+    "react-qr-reader": "^3.0.0-beta-1",
     "react-scripts": "5.0.1",
     "stylelint-config-hudochenkov": "^7.0.1",
     "stylelint-config-standard": "^26.0.0",
     "stylelint-order": "^5.0.0",
     "stylelint-scss": "^4.2.0",
+    "tweetnacl": "^1.0.3",
+    "tweetnacl-util": "^0.15.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -7,39 +9,23 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import BugReportIcon from "@mui/icons-material/BugReport";
-import CloudQueueIcon from "@mui/icons-material/CloudQueue";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import LanguageIcon from "@mui/icons-material/Language";
 import SettingsIcon from "@mui/icons-material/Settings";
-import TwitterIcon from "@mui/icons-material/Twitter";
 
-import { t } from "../../nonview/base/I18N";
+import I18N, { t, LANG_LIST } from "../../nonview/base/I18N";
 import URLContext from "../../nonview/base/URLContext";
 
 const MENU_ITEM_LIST = [
   {
-    name: "Help (Twitter)",
-    url: "https://twitter.com/nuuuwan/status/1539982615662383105",
-    Icon: TwitterIcon,
-  },
-  {
-    name: "Trends (WordCloud)",
-    url: "https://raw.githubusercontent.com/nuuuwan/news_lk2/data/wordcloud.png",
-    Icon: CloudQueueIcon,
-  },
-  {
-    name: "Code Repository - App",
-    url: "http://github.com/nuuuwan/news_lk_app",
-    Icon: GitHubIcon,
-  },
-  {
-    name: "Code Repository - Data",
-    url: "https://github.com/nuuuwan/news_lk2/tree/data",
+    name: "Code Repository",
+    url: "http://github.com/nuuuwan/next_election",
     Icon: GitHubIcon,
   },
   {
     name: "Report Bugs",
-    url: "https://github.com/nuuuwan/news_lk_app/issues",
+    url: "https://github.com/nuuuwan/next_election/issues",
     Icon: BugReportIcon,
   },
 ];
@@ -66,19 +52,39 @@ export default function HelpMenu() {
   };
 
   return (
-    <div>
-      <IconButton onClick={onClick}>
-        <SettingsIcon sx={{ color: "lightgray" }} />
-      </IconButton>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={onClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-      >
+    <Box>
+      <Box>
+        <IconButton onClick={onClick}>
+          <SettingsIcon sx={{ color: "white" }} />
+        </IconButton>
+      </Box>
+      <Menu anchorEl={anchorEl} open={open} onClose={onClose} onClick={onClose}>
+        {LANG_LIST.map(function (lang, iLang) {
+          const currentLang = I18N.getLang();
+          if (currentLang === lang.lang) {
+            return null;
+          }
+
+          const onClick = function () {
+            let context = URLContext.getContext();
+            context.lang = lang.lang;
+            URLContext.setContext(context);
+            window.location.reload(true);
+          };
+
+          return (
+            <MenuItem key={"lang-" + iLang} onClick={onClick}>
+              <ListItemIcon>
+                <LanguageIcon sx={{ color: lang.color }} />
+              </ListItemIcon>
+              <ListItemText sx={{ color: lang.color }}>
+                {lang.label}
+              </ListItemText>
+            </MenuItem>
+          );
+        })}
+
+        <Divider />
         {MENU_ITEM_LIST.map(function (menuItem, i) {
           const key = "app-bar-menu-item-" + i;
           const Icon = menuItem.Icon;
@@ -96,6 +102,7 @@ export default function HelpMenu() {
             </MenuItem>
           );
         })}
+        <Divider />
         <MenuItem onClick={onClickCopy}>
           <ListItemIcon>
             <ContentCopyIcon />
@@ -109,6 +116,6 @@ export default function HelpMenu() {
           <ListItemText>{t("Clear Local Cache")}</ListItemText>
         </MenuItem>
       </Menu>
-    </div>
+    </Box>
   );
 }
