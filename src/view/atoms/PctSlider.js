@@ -1,6 +1,8 @@
-import AlignCenter from "../../view/atoms/AlignCenter";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
+
+import AlignCenter from "../../view/atoms/AlignCenter";
+
 export default function PctSlider({ edID, partyPct }) {
   const partyPctStr = parseInt(Math.round(partyPct * 100, 0)) + "%";
 
