@@ -1,13 +1,12 @@
 import PctSlider from "../../view/atoms/PctSlider";
 
 export default function ElectionResultView({ electionResult }) {
-  console.debug(electionResult);
-  return Object.entries(electionResult.edPctIdx).map(function ([
+  return Object.entries(electionResult.edToPartyPct).map(function ([
     edID,
-    pctVotes,
+    partyPct,
   ]) {
     return (
-      <PctSlider key={"pct-slider_" + edID} edID={edID} pctVotes={pctVotes} />
+      <PctSlider key={"pct-slider_" + edID} edID={edID} partyPct={partyPct} />
     );
   });
 }

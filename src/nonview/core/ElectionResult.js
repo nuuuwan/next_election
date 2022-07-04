@@ -1,9 +1,9 @@
 import IDX from "../../nonview/base/IDX";
-import MULTI_ED_PCT_IDX from "../../nonview/core/MULTI_ED_PCT_IDX";
+import YEAR_TO_PARTY_TO_ED_TO_PARTY_PCT from "../../nonview/core/YEAR_TO_PARTY_TO_ED_TO_PARTY_PCT";
 
 export default class ElectionResult {
-  constructor(edPctIdx) {
-    this.edPctIdx = edPctIdx;
+  constructor(edToPartyPct) {
+    this.edToPartyPct = edToPartyPct;
   }
 
   static fromDict(d) {
@@ -11,8 +11,8 @@ export default class ElectionResult {
   }
 }
 
-export const ELECTION_RESULT_IDX = IDX.map(
-  MULTI_ED_PCT_IDX,
+export const YEAR_TO_PARTY_TO_ELECTION_RESULT = IDX.map(
+  YEAR_TO_PARTY_TO_ED_TO_PARTY_PCT,
   (k) => k,
   (v) =>
     IDX.map(
