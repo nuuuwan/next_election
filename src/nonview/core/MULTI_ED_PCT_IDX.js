@@ -1,4 +1,4 @@
-const MULTI_ED_PERCENTAGE_IDX = {
+const MULTI_ED_PCT_IDX = {
   2020: {
     SLPP: {
       "EC-01": 0.5704,
@@ -294,4 +294,4 @@ const MULTI_ED_PERCENTAGE_IDX = {
     },
   },
 };
-export default MULTI_ED_PERCENTAGE_IDX;
+export default MULTI_ED_PCT_IDX;
