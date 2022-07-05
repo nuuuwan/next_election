@@ -3,39 +3,9 @@ import { ED_IDX, TOTAL_NATIONAL_LIST_SEATS } from "../../nonview/core/ED";
 import ED_TO_PCT from "../../nonview/core/ED_TO_PCT";
 import GROUP_TO_FIELD_TO_ED_TO_PCT_INV from "../../nonview/core/GROUP_TO_FIELD_TO_ED_TO_PCT_INV";
 import YEAR_TO_PARTY_TO_ED_TO_PARTY_PCT from "../../nonview/core/YEAR_TO_PARTY_TO_ED_TO_PARTY_PCT";
+import Seats from "../../nonview/core/Seats";
 
 const MIN_PCT_FOR_ED_SEATS = 0.05;
-
-function getSeats(partyPct, totalSeats, minPctForSeats, bonusSeats) {
-  if (partyPct < minPctForSeats) {
-    return 0;
-  }
-  const otherPartyPct = 1 - partyPct;
-
-  const totalSeatsNonBonus = totalSeats - bonusSeats;
-
-  const seatsFloat = totalSeatsNonBonus * partyPct;
-  const seatsFloatOther = totalSeatsNonBonus * otherPartyPct;
-  const seatsInt = parseInt(seatsFloat);
-  const seatsIntOther = parseInt(seatsFloatOther);
-  const seatsRem = seatsFloat - seatsInt;
-  const seatsRemOther = seatsFloatOther - seatsIntOther;
-
-  let seats = seatsInt;
-
-  const remSeats = totalSeatsNonBonus - seatsInt - seatsIntOther;
-  if (remSeats > 0) {
-    if (seatsRem > seatsRemOther) {
-      seats += 1;
-    }
-  }
-
-  if (partyPct > otherPartyPct) {
-    seats += bonusSeats;
-  }
-
-  return seats;
-}
 
 export default class ElectionResult {
   constructor(edToPartyPct) {
@@ -81,7 +51,7 @@ export default class ElectionResult {
   }
 
   getEDSeats(edId) {
-    return getSeats(
+    return Seats.computeSeats(
       this.getPartyPct(edId),
       ED_IDX[edId].seats,
       MIN_PCT_FOR_ED_SEATS,
@@ -90,7 +60,12 @@ export default class ElectionResult {
   }
 
   getNLSeats() {
-    return getSeats(this.getLKPartyPct(), TOTAL_NATIONAL_LIST_SEATS, 0, 0);
+    return Seats.computeSeats(
+      this.getLKPartyPct(),
+      TOTAL_NATIONAL_LIST_SEATS,
+      0,
+      0
+    );
   }
 
   getTotalSeats() {
