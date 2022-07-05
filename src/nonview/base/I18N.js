@@ -32,7 +32,7 @@ export const LANG_IDX = IDX.build(
 export default class I18N {
   static getLang() {
     let browserLang = localStorage.getItem(CACHE_KEY_LANG);
-    if (!browserLang) {
+    if (!browserLang || browserLang === "undefined" || browserLang === "null") {
       browserLang = "en";
       localStorage.setItem(CACHE_KEY_LANG, browserLang);
     }
