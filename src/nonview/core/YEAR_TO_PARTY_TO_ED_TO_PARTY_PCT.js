@@ -1,3 +1,4 @@
+// Auto Generated
 const YEAR_TO_PARTY_TO_ED_TO_PARTY_PCT = {
   2020: {
     SLPP: {

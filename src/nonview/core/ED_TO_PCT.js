@@ -1,3 +1,4 @@
+// Auto Generated
 const ED_TO_PCT = {
   "EC-01": 0.102,
   "EC-02": 0.1059,
