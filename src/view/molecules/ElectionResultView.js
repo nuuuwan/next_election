@@ -1,4 +1,4 @@
-import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
 
 import { ED_IDX, TOTAL_NATIONAL_LIST_SEATS } from "../../nonview/core/ED";
 
@@ -9,7 +9,7 @@ export default function ElectionResultView({
   onChangeElectionResult,
 }) {
   return (
-    <Box>
+    <Card sx={{m: 1, p:1, width: 350}}>
       <EDView
         key={"ed-view-LK"}
         edId={"LK"}
@@ -40,6 +40,6 @@ export default function ElectionResultView({
           />
         );
       })}
-    </Box>
+    </Card>
   );
 }

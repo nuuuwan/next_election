@@ -6,11 +6,11 @@ import PctSlider from "../../view/atoms/PctSlider";
 
 export default function GroupView({ group, fieldToPct }) {
   return (
-    <Card sx={{m: 1, p: 1}}>
+    <Card sx={{m: 1, p: 1, width: 300}}>
       <Typography variant="subtitle1">{group}</Typography>
       {Object.entries(fieldToPct).map(function ([field, pct]) {
         return (
-          <Box key={"field-" + field} sx={{ marginLeft: 1 }}>
+          <Box key={"field-" + field}>
             <PctSlider
               label={field}
               key={"pct-slider_" + field}
