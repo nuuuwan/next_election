@@ -10,7 +10,7 @@ export default function GroupsView({
   return (
     <Box>
       {groupList.map(function (group) {
-        const fieldToPct = electionResult.getGroupToFieldToPct()[group];
+        const fieldToPct = electionResult.groupToFieldToPct[group];
         return (
           <GroupView
             key={"group-" + group}

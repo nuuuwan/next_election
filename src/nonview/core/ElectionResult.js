@@ -70,10 +70,32 @@ export default class ElectionResult {
       return edToPct;
     },
     {});
-  }
 
-  getGroupToFieldToPct() {
-    return this.groupToFieldToPct;
+    this.groupToFieldToPct = Object.entries(this.groupToFieldToPct).reduce(
+      function (groupToFieldToPct, [group2, fieldToPct]) {
+        if (group2 !== group) {
+          groupToFieldToPct[group2] = Object.entries(fieldToPct).reduce(
+            function (fieldToPct, [field, pct]) {
+
+              fieldToPct[field] = Object.entries(
+                GROUP_TO_FIELD_TO_ED_TO_PCT_INV[group2][field]
+              ).reduce(
+                function (pct, [edId, pctInv]) {
+                  return pct + this.edToPct[edId] * pctInv;
+                }.bind(this),
+                0,
+              );
+
+              return fieldToPct;
+            }.bind(this),
+            {}
+          );
+        }
+        return groupToFieldToPct;
+
+      }.bind(this),
+      this.groupToFieldToPct
+    );
   }
 
   // Derived
