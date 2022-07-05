@@ -9,7 +9,7 @@ export default function ElectionResultView({
   onChangeElectionResult,
 }) {
   return (
-    <Card sx={{ m: 1, p: 1, width: 350 }}>
+    <Card sx={{ m: 1, p: 1, width: 400 }}>
       <EDView
         key={"ed-view-LK"}
         edId={"LK"}
