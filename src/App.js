@@ -27,11 +27,7 @@ const THEME = createTheme({
 });
 
 const STYLE = {
-  width: 400,
-  maxWidth: "90%",
-  margin: "auto",
-  marginTop: 3,
-  marginBottom: 10,
+  margin: 4,
 };
 
 export default class App extends Component {

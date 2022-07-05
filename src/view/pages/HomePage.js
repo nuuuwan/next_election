@@ -10,8 +10,6 @@ import HomePageBottomNavigation from "../../view/molecules/HomePageBottomNavigat
 import DashboardPage from "../../view/pages/DashboardPage";
 
 const STYLE = {
-  width: 400,
-  maxWidth: "90%",
   margin: "auto",
   marginTop: 5,
   marginBottom: 10,
