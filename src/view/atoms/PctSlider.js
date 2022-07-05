@@ -1,9 +1,13 @@
 import Slider from "@mui/material/Slider";
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
-export default function PctSlider({ label, partyPct, onChangePartyPct, color }) {
+export default function PctSlider({
+  label,
+  partyPct,
+  onChangePartyPct,
+  color,
+}) {
   const onChangePartyPctInner = function (e) {
     if (onChangePartyPct) {
       onChangePartyPct(e.target.value);
@@ -15,10 +19,9 @@ export default function PctSlider({ label, partyPct, onChangePartyPct, color }) 
     minimumFractionDigits: 0,
   });
 
-
   return (
     <Stack direction="row">
-      <Typography variant="caption" sx={{width: 200}}>
+      <Typography variant="caption" sx={{ width: 200 }}>
         {label}
       </Typography>
       <Slider
