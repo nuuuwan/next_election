@@ -21,11 +21,7 @@ export default class ElectionResult {
     this.recomputeGroupToFieldToPct();
   }
 
-  getPct(edId) {
-    return this.edToPct[edId];
-  }
-
-  setPct(edId, partyPct) {
+  setEdPct(edId, partyPct) {
     this.edToPct[edId] = partyPct;
   }
 
@@ -67,7 +63,7 @@ export default class ElectionResult {
 
   getEDSeats(edId) {
     return Seats.computeSeats(
-      this.getPct(edId),
+      this.edToPct[edId],
       ED_IDX[edId].seats,
       MIN_PCT_FOR_ED_SEATS,
       1

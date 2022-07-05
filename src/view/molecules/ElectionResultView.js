@@ -18,10 +18,10 @@ export default function ElectionResultView({
         totalSeats={TOTAL_NATIONAL_LIST_SEATS}
       />
       {electionResult.getSortedEdIdList().map(function (edId) {
-        const partyPct = electionResult.getPct(edId);
+        const partyPct = electionResult.edToPct[edId];
 
         const onChangePct = function (partyPct) {
-          electionResult.setPct(edId, partyPct);
+          electionResult.setEdPct(edId, partyPct);
           onChangeElectionResult(electionResult);
         };
 
