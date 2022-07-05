@@ -111,6 +111,24 @@ export default class ElectionResult {
   static fromDict(d) {
     return new ElectionResult(d);
   }
+
+  static constructEmpty() {
+    const d = IDX.map(
+      ED_TO_PCT,
+      (edId) => edId,
+      (v) => v * 0
+    );
+    return new ElectionResult(d);
+  }
+
+  static constructRandom() {
+    const d = IDX.map(
+      ED_TO_PCT,
+      (edId) => edId,
+      (v) => Math.random() * 0.1
+    );
+    return new ElectionResult(d);
+  }
 }
 
 export const YEAR_TO_PARTY_TO_ELECTION_RESULT = IDX.map(
