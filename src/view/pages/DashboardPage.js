@@ -5,6 +5,7 @@ import Stack from "@mui/material/Stack";
 import { YEAR_TO_PARTY_TO_ELECTION_RESULT } from "../../nonview/core/ElectionResult";
 
 import ElectionResultView from "../../view/molecules/ElectionResultView";
+import GroupsView from "../../view/molecules/GroupsView";
 import NationalView from "../../view/molecules/NationalView";
 
 const DEFAULT_YEAR = 2020;
@@ -31,6 +32,7 @@ export default class DashboardPage extends Component {
           onChangeElectionResult={this.onChangeElectionResult.bind(this)}
         />
         <NationalView electionResult={electionResult} />
+        <GroupsView electionResult={electionResult} />
       </Stack>
     );
   }
