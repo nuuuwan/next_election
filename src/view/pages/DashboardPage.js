@@ -22,7 +22,7 @@ export default class DashboardPage extends Component {
   render() {
     const { electionResult } = this.state;
     return (
-      <Stack direction="row" gap={2}>
+      <Stack direction="row" gap={0.1}>
         <NationalView electionResult={electionResult} />
         <ElectionResultView
           electionResult={electionResult}

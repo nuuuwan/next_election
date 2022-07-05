@@ -51,14 +51,10 @@ export default class ElectionResult {
 
   // Derived
   getLKPct() {
-    return Object.entries(this.edToPct).reduce(function (
-      lkPct,
-      [edId, Pct]
-    ) {
+    return Object.entries(this.edToPct).reduce(function (lkPct, [edId, Pct]) {
       const edPct = ED_TO_PCT[edId];
       return lkPct + Pct * edPct;
-    },
-    0);
+    }, 0);
   }
 
   getEDSeats(edId) {

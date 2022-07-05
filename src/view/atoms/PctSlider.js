@@ -16,7 +16,7 @@ export default function PctSlider({ label, Pct, onChangePct, color }) {
 
   return (
     <Stack direction="row">
-      <Typography variant="caption" sx={{ width: 200 }}>
+      <Typography variant="caption" sx={{ width: 140 }}>
         {label}
       </Typography>
       <Slider
@@ -25,13 +25,13 @@ export default function PctSlider({ label, Pct, onChangePct, color }) {
         value={Pct}
         step={0.001}
         onChange={onChangePctInner}
-        sx={{ color }}
+        sx={{ color, width: 100 }}
       />
       <Typography
         variant="caption"
         color={color}
         sx={{
-          width: 60,
+          width: 30,
           marginRight: 3,
           textAlign: "right",
         }}

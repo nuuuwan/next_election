@@ -8,13 +8,7 @@ import ED_TO_PCT from "../../nonview/core/ED_TO_PCT";
 import AlignCenter from "../../view/atoms/AlignCenter";
 import PctSlider from "../../view/atoms/PctSlider";
 
-export default function EDView({
-  edId,
-  Pct,
-  seats,
-  totalSeats,
-  onChangePct,
-}) {
+export default function EDView({ edId, Pct, seats, totalSeats, onChangePct }) {
   const ed = ED_IDX[edId];
   const edPct = ED_TO_PCT[edId];
 
@@ -23,7 +17,7 @@ export default function EDView({
 
   return (
     <AlignCenter>
-      <Box sx={{ width: 450 }}>
+      <Box sx={{ marginLeft: 1 }}>
         <PctSlider
           key={"pct-slider_" + edId}
           edId={edId}

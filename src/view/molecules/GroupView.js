@@ -9,7 +9,7 @@ export default function GroupView({ group, fieldToPct }) {
       <Typography variant="subtitle1">{group}</Typography>
       {Object.entries(fieldToPct).map(function ([field, pct]) {
         return (
-          <Box key={"field-" + field} sx={{ width: 450 }}>
+          <Box key={"field-" + field} sx={{ marginLeft: 1 }}>
             <PctSlider
               label={field}
               key={"pct-slider_" + field}
