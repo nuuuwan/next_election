@@ -2,17 +2,28 @@ import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-export default function PctSlider({ label, Pct, onChangePct, color }) {
+export default function PctSlider({ label, pct, onChangePct }) {
   const onChangePctInner = function (e) {
     if (onChangePct) {
       onChangePct(e.target.value);
     }
   };
+  pct = Math.max(0,Math.min(1, pct));
+  let minimumFractionDigits = 1;
+  if (pct > 0.1) {
+    minimumFractionDigits = 0;
+  }
 
-  const PctStr = Pct.toLocaleString(undefined, {
+  const light = 95 - pct * 95;
+  const color = `hsla(0,0%,${light}%,1.0)`
+
+  let pctStr = "-";
+  if (pct > 0.001) {
+  pctStr = pct.toLocaleString(undefined, {
     style: "percent",
-    minimumFractionDigits: 0,
+    minimumFractionDigits,
   });
+}
 
   return (
     <Stack direction="row">
@@ -22,7 +33,7 @@ export default function PctSlider({ label, Pct, onChangePct, color }) {
       <Slider
         min={0}
         max={1}
-        value={Pct}
+        value={pct}
         step={0.001}
         onChange={onChangePctInner}
         sx={{ color, width: 100 }}
@@ -32,11 +43,11 @@ export default function PctSlider({ label, Pct, onChangePct, color }) {
         color={color}
         sx={{
           width: 30,
-          marginRight: 3,
+          marginLeft: 2,
           textAlign: "right",
         }}
       >
-        {PctStr}
+        {pctStr}
       </Typography>
     </Stack>
   );

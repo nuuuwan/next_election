@@ -2,14 +2,14 @@ import IDX from "../../nonview/base/IDX";
 import { ED_IDX, TOTAL_NATIONAL_LIST_SEATS } from "../../nonview/core/ED";
 import GROUP_TO_FIELD_TO_PD_TO_PCT from "../../nonview/core/GROUP_TO_FIELD_TO_PD_TO_PCT";
 import GROUP_TO_FIELD_TO_PD_TO_PCT_INV from "../../nonview/core/GROUP_TO_FIELD_TO_PD_TO_PCT_INV";
-import PD_LIST from "../../nonview/core/PD";
+import {PD_LIST} from "../../nonview/core/PD";
 import Seats from "../../nonview/core/Seats";
 
 const MIN_PCT_FOR_ED_SEATS = 0.05;
 
 export default class ElectionResult {
   static getEmptyPdToPct() {
-    return IDX.map(
+    return IDX.build(
       PD_LIST,
       pd => pd.pdId,
       pd => 0,
@@ -65,38 +65,43 @@ export default class ElectionResult {
       pdToPct,
       [pdId, pct]
     ) {
-      pdToPct[pdId] =
-        pct + dPct * GROUP_TO_FIELD_TO_PD_TO_PCT[group][field][pdId];
+      let pct0 = GROUP_TO_FIELD_TO_PD_TO_PCT[group][field][pdId];
+      if (!pct0) {
+        pct0 = 0;
+      }
+      pdToPct[pdId] = pct + dPct * pct0;
       return pdToPct;
     },
     {});
 
     this.groupToFieldToPct = Object.entries(this.groupToFieldToPct).reduce(
       function (groupToFieldToPct, [group2, fieldToPct]) {
-        if (group2 !== group) {
-          groupToFieldToPct[group2] = Object.entries(fieldToPct).reduce(
-            function (fieldToPct, [field, pct]) {
-              fieldToPct[field] = Object.entries(
-                GROUP_TO_FIELD_TO_PD_TO_PCT_INV[group2][field]
-              ).reduce(
-                function (pct, [pdId, pctInv]) {
-                  return pct + this.pdToPct[pdId] * pctInv;
-                }.bind(this),
-                0
-              );
-
-              return fieldToPct;
-            }.bind(this),
-            {}
-          );
+        if (group2 === group) {
+          return groupToFieldToPct;
         }
+
+        groupToFieldToPct[group2] = Object.entries(fieldToPct).reduce(
+          function (fieldToPct, [field, pct]) {
+            fieldToPct[field] = Object.entries(
+              GROUP_TO_FIELD_TO_PD_TO_PCT_INV[group2][field]
+            ).reduce(
+              function (pct, [pdId, pctInv]) {
+                return pct + this.pdToPct[pdId] * pctInv;
+              }.bind(this),
+              0,
+            );
+            return fieldToPct;
+          }.bind(this),
+          {}
+        );
         return groupToFieldToPct;
+
       }.bind(this),
       this.groupToFieldToPct
     );
   }
 
-  // Derivpd
+  // Derived
 
   get edToPct() {
     return IDX.map(
@@ -106,6 +111,7 @@ export default class ElectionResult {
         function(pct, [pdId, pctInv]) {
           return pct + pctInv * this.pdToPct[pdId];
         }.bind(this),
+        0,
       )
     );
   }
