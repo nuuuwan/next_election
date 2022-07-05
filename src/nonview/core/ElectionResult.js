@@ -92,6 +92,4 @@ export default class ElectionResult {
   getSortedEdIdList() {
     return Object.keys(this.edToPct);
   }
-
-
 }
