@@ -14,7 +14,7 @@ export default function PctSlider({ label, pct, onChangePct }) {
     minimumFractionDigits = 0;
   }
 
-  const light = 95 - pct * 95;
+  const light = 95 - Math.sqrt(pct) * 95;
   const color = `hsla(0,0%,${light}%,1.0)`;
 
   let pctStr = "-";
