@@ -31,8 +31,6 @@ export default function EDView({
   const ed = ED_IDX[edId];
   const edPct = ED_TO_PCT[edId];
 
-  const seatsStr = seats === 1 ? "seat" : "seats";
-
   let color = "#ccc";
   if (partyPct > 0.4) {
     color = "#000";

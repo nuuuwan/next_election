@@ -11,7 +11,7 @@ export default function ElectionResultView({
   return (
     <Box>
       <EDView
-        key={"ed-view-" + "LK"}
+        key={"ed-view-LK"}
         edId={"LK"}
         partyPct={electionResult.getLKPartyPct()}
         seats={electionResult.getNLSeats()}
