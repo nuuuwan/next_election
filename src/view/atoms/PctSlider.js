@@ -2,14 +2,14 @@ import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-export default function PctSlider({ label, partyPct, onChangePct, color }) {
+export default function PctSlider({ label, Pct, onChangePct, color }) {
   const onChangePctInner = function (e) {
     if (onChangePct) {
       onChangePct(e.target.value);
     }
   };
 
-  const partyPctStr = partyPct.toLocaleString(undefined, {
+  const PctStr = Pct.toLocaleString(undefined, {
     style: "percent",
     minimumFractionDigits: 0,
   });
@@ -22,7 +22,7 @@ export default function PctSlider({ label, partyPct, onChangePct, color }) {
       <Slider
         min={0}
         max={1}
-        value={partyPct}
+        value={Pct}
         step={0.001}
         onChange={onChangePctInner}
         sx={{ color }}
@@ -36,7 +36,7 @@ export default function PctSlider({ label, partyPct, onChangePct, color }) {
           textAlign: "right",
         }}
       >
-        {partyPctStr}
+        {PctStr}
       </Typography>
     </Stack>
   );

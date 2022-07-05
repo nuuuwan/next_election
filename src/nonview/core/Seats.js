@@ -1,13 +1,13 @@
 export default class Seats {
-  static computeSeats(partyPct, totalSeats, minPctForSeats, bonusSeats) {
-    if (partyPct < minPctForSeats) {
+  static computeSeats(Pct, totalSeats, minPctForSeats, bonusSeats) {
+    if (Pct < minPctForSeats) {
       return 0;
     }
-    const otherPct = 1 - partyPct;
+    const otherPct = 1 - Pct;
 
     const totalSeatsNonBonus = totalSeats - bonusSeats;
 
-    const seatsFloat = totalSeatsNonBonus * partyPct;
+    const seatsFloat = totalSeatsNonBonus * Pct;
     const seatsFloatOther = totalSeatsNonBonus * otherPct;
     const seatsInt = parseInt(seatsFloat);
     const seatsIntOther = parseInt(seatsFloatOther);
@@ -23,7 +23,7 @@ export default class Seats {
       }
     }
 
-    if (partyPct > otherPct) {
+    if (Pct > otherPct) {
       seats += bonusSeats;
     }
 

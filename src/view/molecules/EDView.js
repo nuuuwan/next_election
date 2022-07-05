@@ -10,7 +10,7 @@ import PctSlider from "../../view/atoms/PctSlider";
 
 export default function EDView({
   edId,
-  partyPct,
+  Pct,
   seats,
   totalSeats,
   onChangePct,
@@ -18,7 +18,7 @@ export default function EDView({
   const ed = ED_IDX[edId];
   const edPct = ED_TO_PCT[edId];
 
-  const light = 80 - Math.sqrt(partyPct) * 80;
+  const light = 80 - Math.sqrt(Pct) * 80;
   let color = `hsla(0,0%,${light}%,1.0)`;
 
   return (
@@ -27,7 +27,7 @@ export default function EDView({
         <PctSlider
           key={"pct-slider_" + edId}
           edId={edId}
-          partyPct={partyPct}
+          Pct={Pct}
           edPct={edPct}
           totalSeats={totalSeats}
           onChangePct={onChangePct}

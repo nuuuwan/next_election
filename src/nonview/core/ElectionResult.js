@@ -21,8 +21,8 @@ export default class ElectionResult {
     this.recomputeGroupToFieldToPct();
   }
 
-  setEdPct(edId, partyPct) {
-    this.edToPct[edId] = partyPct;
+  setEdPct(edId, Pct) {
+    this.edToPct[edId] = Pct;
   }
 
   recomputeGroupToFieldToPct() {
@@ -53,10 +53,10 @@ export default class ElectionResult {
   getLKPct() {
     return Object.entries(this.edToPct).reduce(function (
       lkPct,
-      [edId, partyPct]
+      [edId, Pct]
     ) {
       const edPct = ED_TO_PCT[edId];
-      return lkPct + partyPct * edPct;
+      return lkPct + Pct * edPct;
     },
     0);
   }

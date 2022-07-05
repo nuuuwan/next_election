@@ -13,7 +13,7 @@ export default function GroupView({ group, fieldToPct }) {
             <PctSlider
               label={field}
               key={"pct-slider_" + field}
-              partyPct={pct}
+              Pct={pct}
               onChangePct={null}
               color={"gray"}
             />

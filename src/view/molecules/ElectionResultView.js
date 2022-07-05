@@ -13,15 +13,15 @@ export default function ElectionResultView({
       <EDView
         key={"ed-view-LK"}
         edId={"LK"}
-        partyPct={electionResult.getLKPct()}
+        Pct={electionResult.getLKPct()}
         seats={electionResult.getNLSeats()}
         totalSeats={TOTAL_NATIONAL_LIST_SEATS}
       />
       {electionResult.getSortedEdIdList().map(function (edId) {
-        const partyPct = electionResult.edToPct[edId];
+        const Pct = electionResult.edToPct[edId];
 
-        const onChangePct = function (partyPct) {
-          electionResult.setEdPct(edId, partyPct);
+        const onChangePct = function (Pct) {
+          electionResult.setEdPct(edId, Pct);
           onChangeElectionResult(electionResult);
         };
 
@@ -33,7 +33,7 @@ export default function ElectionResultView({
           <EDView
             key={"ed-view-" + edId}
             edId={edId}
-            partyPct={partyPct}
+            Pct={Pct}
             seats={seats}
             totalSeats={totalSeats}
             onChangePct={onChangePct}
