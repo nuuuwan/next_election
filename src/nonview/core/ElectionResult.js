@@ -1,6 +1,7 @@
 import IDX from "../../nonview/base/IDX";
 import { ED_IDX, TOTAL_NATIONAL_LIST_SEATS } from "../../nonview/core/ED";
 import ED_TO_PCT from "../../nonview/core/ED_TO_PCT";
+import GROUP_TO_FIELD_TO_ED_TO_PCT_INV from "../../nonview/core/GROUP_TO_FIELD_TO_ED_TO_PCT_INV";
 import YEAR_TO_PARTY_TO_ED_TO_PARTY_PCT from "../../nonview/core/YEAR_TO_PARTY_TO_ED_TO_PARTY_PCT";
 
 const MIN_PCT_FOR_ED_SEATS = 0.05;
@@ -47,6 +48,25 @@ export default class ElectionResult {
 
   setPartyPct(edId, partyPct) {
     this.edToPartyPct[edId] = partyPct;
+  }
+
+  groupToFieldToPct() {
+    return IDX.map(
+      GROUP_TO_FIELD_TO_ED_TO_PCT_INV,
+      (group) => group,
+      (fieldToEdToPctInv) =>
+        IDX.map(
+          fieldToEdToPctInv,
+          (field) => field,
+          (edToPctInv) =>
+            Object.entries(edToPctInv).reduce(
+              function (pct, [edId, pctInv]) {
+                return pct + pctInv * this.edToPartyPct[edId];
+              }.bind(this),
+              0
+            )
+        )
+    );
   }
 
   getLKPartyPct() {
