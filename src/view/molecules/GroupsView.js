@@ -2,7 +2,11 @@ import Box from "@mui/material/Box";
 
 import GroupView from "../../view/molecules/GroupView";
 
-export default function GroupsView({ electionResult, groupList }) {
+export default function GroupsView({
+  electionResult,
+  onChangeElectionResult,
+  groupList,
+}) {
   return (
     <Box>
       {groupList.map(function (group) {
@@ -12,6 +16,8 @@ export default function GroupsView({ electionResult, groupList }) {
             key={"group-" + group}
             group={group}
             fieldToPct={fieldToPct}
+            electionResult={electionResult}
+            onChangeElectionResult={onChangeElectionResult}
           />
         );
       })}

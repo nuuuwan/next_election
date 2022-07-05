@@ -30,10 +30,12 @@ export default class DashboardPage extends Component {
         />
         <GroupsView
           electionResult={electionResult}
+          onChangeElectionResult={this.onChangeElectionResult.bind(this)}
           groupList={["Ethnicity", "Religion"]}
         />
         <GroupsView
           electionResult={electionResult}
+          onChangeElectionResult={this.onChangeElectionResult.bind(this)}
           groupList={["2020 Election", "2015 Election", "2010 Election"]}
         />
       </Stack>

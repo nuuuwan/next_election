@@ -1,6 +1,7 @@
 import IDX from "../../nonview/base/IDX";
 import { ED_IDX, TOTAL_NATIONAL_LIST_SEATS } from "../../nonview/core/ED";
 import ED_TO_PCT from "../../nonview/core/ED_TO_PCT";
+import GROUP_TO_FIELD_TO_ED_TO_PCT from "../../nonview/core/GROUP_TO_FIELD_TO_ED_TO_PCT";
 import GROUP_TO_FIELD_TO_ED_TO_PCT_INV from "../../nonview/core/GROUP_TO_FIELD_TO_ED_TO_PCT_INV";
 import Seats from "../../nonview/core/Seats";
 
@@ -15,10 +16,22 @@ export default class ElectionResult {
     );
   }
 
+  static getEmptyGroupToFieldToPct() {
+    return IDX.map(
+      GROUP_TO_FIELD_TO_ED_TO_PCT,
+      (group) => group,
+      (fieldToEdToPct) =>
+        IDX.map(
+          fieldToEdToPct,
+          (field) => field,
+          (edToPct) => 0
+        )
+    );
+  }
+
   constructor(edToPct) {
     this.edToPct = ElectionResult.getEmptyEdToPct();
-    this.groupToFieldToPct = undefined;
-    this.recomputeGroupToFieldToPct();
+    this.groupToFieldToPct = ElectionResult.getEmptyGroupToFieldToPct();
   }
 
   moveEdPct(edId, newPct) {
@@ -43,27 +56,23 @@ export default class ElectionResult {
     );
   }
 
-  recomputeGroupToFieldToPct() {
-    this.groupToFieldToPct = IDX.map(
-      GROUP_TO_FIELD_TO_ED_TO_PCT_INV,
-      (group) => group,
-      (fieldToEdToPctInv) =>
-        IDX.map(
-          fieldToEdToPctInv,
-          (field) => field,
-          (edToPctInv) =>
-            Object.entries(edToPctInv).reduce(
-              function (pct, [edId, pctInv]) {
-                return pct + pctInv * this.edToPct[edId];
-              }.bind(this),
-              0
-            )
-        )
-    );
+  moveGroupFieldPct(group, field, newPct) {
+    const oldPct = this.groupToFieldToPct[group][field];
+    const dPct = newPct - oldPct;
+    this.groupToFieldToPct[group][field] = newPct;
+
+    this.edToPct = Object.entries(this.edToPct).reduce(function (
+      edToPct,
+      [edId, pct]
+    ) {
+      edToPct[edId] =
+        pct + dPct * GROUP_TO_FIELD_TO_ED_TO_PCT[group][field][edId];
+      return edToPct;
+    },
+    {});
   }
 
   getGroupToFieldToPct() {
-    this.recomputeGroupToFieldToPct();
     return this.groupToFieldToPct;
   }
 
