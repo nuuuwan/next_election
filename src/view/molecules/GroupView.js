@@ -1,12 +1,12 @@
 import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import Card from '@mui/material/Card';
 
 import PctSlider from "../../view/atoms/PctSlider";
 
 export default function GroupView({ group, fieldToPct }) {
   return (
-    <Card sx={{m: 1, p: 1, width: 300}}>
+    <Card sx={{ m: 1, p: 1, width: 300 }}>
       <Typography variant="subtitle1">{group}</Typography>
       {Object.entries(fieldToPct).map(function ([field, pct]) {
         return (
