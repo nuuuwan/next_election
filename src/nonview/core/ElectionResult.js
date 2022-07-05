@@ -11,7 +11,7 @@ export default class ElectionResult {
   static getEmptyPdToPct() {
     return IDX.map(
       PD_LIST,
-      pd => d.pdId,
+      pd => pd.pdId,
       pd => 0,
     );
   }
