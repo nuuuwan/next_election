@@ -21,8 +21,25 @@ export default class ElectionResult {
     this.recomputeGroupToFieldToPct();
   }
 
-  setEdPct(edId, Pct) {
-    this.edToPct[edId] = Pct;
+  moveEdPct(edId, newPct) {
+    const oldPct = this.edToPct[edId];
+    const dPct = newPct - oldPct;
+    this.edToPct[edId] = newPct;
+
+
+    this.groupToFieldToPct = Object.entries(this.groupToFieldToPct).reduce(
+      function(groupToFieldToPct, [group, fieldToPct]) {
+        groupToFieldToPct[group] = Object.entries(fieldToPct).reduce(
+          function(fieldToPct, [field, pct]) {
+            fieldToPct[field] = pct + dPct * GROUP_TO_FIELD_TO_ED_TO_PCT_INV[group][field][edId];
+            return fieldToPct;
+          },
+          {},
+        );
+        return groupToFieldToPct;
+      },
+      {}
+    )
   }
 
   recomputeGroupToFieldToPct() {

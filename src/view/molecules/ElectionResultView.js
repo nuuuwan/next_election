@@ -21,7 +21,7 @@ export default function ElectionResultView({
         const Pct = electionResult.edToPct[edId];
 
         const onChangePct = function (Pct) {
-          electionResult.setEdPct(edId, Pct);
+          electionResult.moveEdPct(edId, Pct);
           onChangeElectionResult(electionResult);
         };
 
