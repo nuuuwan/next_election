@@ -11,7 +11,7 @@ import NationalView from "../../view/molecules/NationalView";
 export default class DashboardPage extends Component {
   constructor(props) {
     super(props);
-    const electionResult = ElectionResult.constructEmpty();
+    const electionResult = new ElectionResult();
     this.state = { electionResult };
   }
 

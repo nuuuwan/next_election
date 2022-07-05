@@ -7,8 +7,18 @@ import Seats from "../../nonview/core/Seats";
 const MIN_PCT_FOR_ED_SEATS = 0.05;
 
 export default class ElectionResult {
+  static getEmptyEdToPct() {
+    return IDX.map(
+      ED_TO_PCT,
+      (edId) => edId,
+      (v) => v * 0
+    );
+  }
+
   constructor(edToPct) {
-    this.edToPct = edToPct;
+    this.edToPct = ElectionResult.getEmptyEdToPct();
+    this.groupToFieldToPct = undefined;
+    this.recomputeGroupToFieldToPct();
   }
 
   getPct(edId) {
@@ -19,8 +29,8 @@ export default class ElectionResult {
     this.edToPct[edId] = partyPct;
   }
 
-  getGroupToFieldToPct() {
-    return IDX.map(
+  recomputeGroupToFieldToPct() {
+    this.groupToFieldToPct = IDX.map(
       GROUP_TO_FIELD_TO_ED_TO_PCT_INV,
       (group) => group,
       (fieldToEdToPctInv) =>
@@ -38,6 +48,12 @@ export default class ElectionResult {
     );
   }
 
+  getGroupToFieldToPct() {
+    this.recomputeGroupToFieldToPct();
+    return this.groupToFieldToPct;
+  }
+
+  // Derived
   getLKPct() {
     return Object.entries(this.edToPct).reduce(function (
       lkPct,
@@ -77,25 +93,5 @@ export default class ElectionResult {
     return Object.keys(this.edToPct);
   }
 
-  static fromDict(d) {
-    return new ElectionResult(d);
-  }
 
-  static constructEmpty() {
-    const d = IDX.map(
-      ED_TO_PCT,
-      (edId) => edId,
-      (v) => v * 0
-    );
-    return new ElectionResult(d);
-  }
-
-  static constructRandom() {
-    const d = IDX.map(
-      ED_TO_PCT,
-      (edId) => edId,
-      (v) => Math.random() * 0.1
-    );
-    return new ElectionResult(d);
-  }
 }
