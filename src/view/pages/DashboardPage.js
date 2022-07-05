@@ -9,7 +9,7 @@ import GroupsView from "../../view/molecules/GroupsView";
 import NationalView from "../../view/molecules/NationalView";
 
 const DEFAULT_YEAR = 2020;
-const DEFAULT_PARTY = "JJB";
+const DEFAULT_PARTY = "SJB";
 
 export default class DashboardPage extends Component {
   constructor(props) {
