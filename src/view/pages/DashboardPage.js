@@ -26,13 +26,20 @@ export default class DashboardPage extends Component {
   render() {
     const { electionResult } = this.state;
     return (
-      <Stack direction="row" gap={5}>
+      <Stack direction="row" gap={2}>
+        <NationalView electionResult={electionResult} />
         <ElectionResultView
           electionResult={electionResult}
           onChangeElectionResult={this.onChangeElectionResult.bind(this)}
         />
-        <NationalView electionResult={electionResult} />
-        <GroupsView electionResult={electionResult} />
+        <GroupsView
+          electionResult={electionResult}
+          groupList={["Ethnicity", "Religion"]}
+        />
+        <GroupsView
+          electionResult={electionResult}
+          groupList={["2020 Election", "2015 Election", "2010 Election"]}
+        />
       </Stack>
     );
   }

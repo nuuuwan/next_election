@@ -50,7 +50,7 @@ export default class ElectionResult {
     this.edToPartyPct[edId] = partyPct;
   }
 
-  groupToFieldToPct() {
+  getGroupToFieldToPct() {
     return IDX.map(
       GROUP_TO_FIELD_TO_ED_TO_PCT_INV,
       (group) => group,
