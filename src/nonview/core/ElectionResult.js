@@ -1,43 +1,43 @@
 import IDX from "../../nonview/base/IDX";
 import { ED_IDX, TOTAL_NATIONAL_LIST_SEATS } from "../../nonview/core/ED";
-import ED_TO_PCT from "../../nonview/core/ED_TO_PCT";
-import GROUP_TO_FIELD_TO_ED_TO_PCT from "../../nonview/core/GROUP_TO_FIELD_TO_ED_TO_PCT";
-import GROUP_TO_FIELD_TO_ED_TO_PCT_INV from "../../nonview/core/GROUP_TO_FIELD_TO_ED_TO_PCT_INV";
+import GROUP_TO_FIELD_TO_PD_TO_PCT from "../../nonview/core/GROUP_TO_FIELD_TO_PD_TO_PCT";
+import GROUP_TO_FIELD_TO_PD_TO_PCT_INV from "../../nonview/core/GROUP_TO_FIELD_TO_PD_TO_PCT_INV";
+import PD_LIST from "../../nonview/core/PD";
 import Seats from "../../nonview/core/Seats";
 
 const MIN_PCT_FOR_ED_SEATS = 0.05;
 
 export default class ElectionResult {
-  static getEmptyEdToPct() {
+  static getEmptyPdToPct() {
     return IDX.map(
-      ED_TO_PCT,
-      (edId) => edId,
-      (v) => v * 0
+      PD_LIST,
+      pd => d.pdId,
+      pd => 0,
     );
   }
 
   static getEmptyGroupToFieldToPct() {
     return IDX.map(
-      GROUP_TO_FIELD_TO_ED_TO_PCT,
+      GROUP_TO_FIELD_TO_PD_TO_PCT,
       (group) => group,
-      (fieldToEdToPct) =>
+      (fieldToPdToPct) =>
         IDX.map(
-          fieldToEdToPct,
+          fieldToPdToPct,
           (field) => field,
-          (edToPct) => 0
+          (pdToPct) => 0
         )
     );
   }
 
-  constructor(edToPct) {
-    this.edToPct = ElectionResult.getEmptyEdToPct();
+  constructor(pdToPct) {
+    this.pdToPct = ElectionResult.getEmptyPdToPct();
     this.groupToFieldToPct = ElectionResult.getEmptyGroupToFieldToPct();
   }
 
-  moveEdPct(edId, newPct) {
-    const oldPct = this.edToPct[edId];
+  movePdPct(pdId, newPct) {
+    const oldPct = this.pdToPct[pdId];
     const dPct = newPct - oldPct;
-    this.edToPct[edId] = newPct;
+    this.pdToPct[pdId] = newPct;
 
     this.groupToFieldToPct = Object.entries(this.groupToFieldToPct).reduce(
       function (groupToFieldToPct, [group, fieldToPct]) {
@@ -46,7 +46,7 @@ export default class ElectionResult {
           [field, pct]
         ) {
           fieldToPct[field] =
-            pct + dPct * GROUP_TO_FIELD_TO_ED_TO_PCT_INV[group][field][edId];
+            pct + dPct * GROUP_TO_FIELD_TO_PD_TO_PCT_INV[group][field][pdId];
           return fieldToPct;
         },
         {});
@@ -61,13 +61,13 @@ export default class ElectionResult {
     const dPct = newPct - oldPct;
     this.groupToFieldToPct[group][field] = newPct;
 
-    this.edToPct = Object.entries(this.edToPct).reduce(function (
-      edToPct,
-      [edId, pct]
+    this.pdToPct = Object.entries(this.pdToPct).reduce(function (
+      pdToPct,
+      [pdId, pct]
     ) {
-      edToPct[edId] =
-        pct + dPct * GROUP_TO_FIELD_TO_ED_TO_PCT[group][field][edId];
-      return edToPct;
+      pdToPct[pdId] =
+        pct + dPct * GROUP_TO_FIELD_TO_PD_TO_PCT[group][field][pdId];
+      return pdToPct;
     },
     {});
 
@@ -76,14 +76,13 @@ export default class ElectionResult {
         if (group2 !== group) {
           groupToFieldToPct[group2] = Object.entries(fieldToPct).reduce(
             function (fieldToPct, [field, pct]) {
-
               fieldToPct[field] = Object.entries(
-                GROUP_TO_FIELD_TO_ED_TO_PCT_INV[group2][field]
+                GROUP_TO_FIELD_TO_PD_TO_PCT_INV[group2][field]
               ).reduce(
-                function (pct, [edId, pctInv]) {
-                  return pct + this.edToPct[edId] * pctInv;
+                function (pct, [pdId, pctInv]) {
+                  return pct + this.pdToPct[pdId] * pctInv;
                 }.bind(this),
-                0,
+                0
               );
 
               return fieldToPct;
@@ -92,17 +91,28 @@ export default class ElectionResult {
           );
         }
         return groupToFieldToPct;
-
       }.bind(this),
       this.groupToFieldToPct
     );
   }
 
-  // Derived
-  getLKPct() {
-    return Object.entries(this.edToPct).reduce(function (lkPct, [edId, Pct]) {
-      const edPct = ED_TO_PCT[edId];
-      return lkPct + Pct * edPct;
+  // Derivpd
+
+  get edToPct() {
+    return IDX.map(
+      GROUP_TO_FIELD_TO_PD_TO_PCT_INV['ED'],
+      edId => edId,
+      pdToPct => Object.entries(pdToPct).reduce(
+        function(pct, [pdId, pctInv]) {
+          return pct + pctInv * this.pdToPct[pdId];
+        }.bind(this),
+      )
+    );
+  }
+
+  get lkPct() {
+    return Object.entries(this.pdToPct).reduce(function (lkPct, [pdId, pct]) {
+      return lkPct + GROUP_TO_FIELD_TO_PD_TO_PCT_INV['LK']['lk'][pdId] * pct;
     }, 0);
   }
 
@@ -116,21 +126,21 @@ export default class ElectionResult {
   }
 
   getNLSeats() {
-    return Seats.computeSeats(this.getLKPct(), TOTAL_NATIONAL_LIST_SEATS, 0, 0);
+    return Seats.computeSeats(this.lkPct, TOTAL_NATIONAL_LIST_SEATS, 0, 0);
   }
 
   getTotalSeats() {
     return (
       Object.keys(this.edToPct).reduce(
-        function (totalEdSeats, edId) {
-          return totalEdSeats + this.getEDSeats(edId);
+        function (totalPdSeats, edId) {
+          return totalPdSeats + this.getEDSeats(edId);
         }.bind(this),
         0
       ) + this.getNLSeats()
     );
   }
 
-  getSortedEdIdList() {
+  getSortedPdIdList() {
     return Object.keys(this.edToPct);
   }
 }
