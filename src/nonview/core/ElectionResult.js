@@ -2,7 +2,6 @@ import IDX from "../../nonview/base/IDX";
 import { ED_IDX, TOTAL_NATIONAL_LIST_SEATS } from "../../nonview/core/ED";
 import ED_TO_PCT from "../../nonview/core/ED_TO_PCT";
 import GROUP_TO_FIELD_TO_ED_TO_PCT_INV from "../../nonview/core/GROUP_TO_FIELD_TO_ED_TO_PCT_INV";
-import YEAR_TO_PARTY_TO_ED_TO_PARTY_PCT from "../../nonview/core/YEAR_TO_PARTY_TO_ED_TO_PARTY_PCT";
 import Seats from "../../nonview/core/Seats";
 
 const MIN_PCT_FOR_ED_SEATS = 0.05;
@@ -105,14 +104,3 @@ export default class ElectionResult {
     return new ElectionResult(d);
   }
 }
-
-export const YEAR_TO_PARTY_TO_ELECTION_RESULT = IDX.map(
-  YEAR_TO_PARTY_TO_ED_TO_PARTY_PCT,
-  (k) => k,
-  (v) =>
-    IDX.map(
-      v,
-      (k) => k,
-      (v) => ElectionResult.fromDict(v)
-    )
-);
