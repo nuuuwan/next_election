@@ -14,7 +14,7 @@ export default function GroupView({ group, fieldToPct }) {
               label={field}
               key={"pct-slider_" + field}
               partyPct={pct}
-              onChangePartyPct={null}
+              onChangePct={null}
               color={"gray"}
             />
           </Box>

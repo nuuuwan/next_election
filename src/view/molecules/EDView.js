@@ -13,7 +13,7 @@ export default function EDView({
   partyPct,
   seats,
   totalSeats,
-  onChangePartyPct,
+  onChangePct,
 }) {
   const ed = ED_IDX[edId];
   const edPct = ED_TO_PCT[edId];
@@ -30,7 +30,7 @@ export default function EDView({
           partyPct={partyPct}
           edPct={edPct}
           totalSeats={totalSeats}
-          onChangePartyPct={onChangePartyPct}
+          onChangePct={onChangePct}
           color={color}
           label={t(ed.name) + " (" + totalSeats + ")"}
         />

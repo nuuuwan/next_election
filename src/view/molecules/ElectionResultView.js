@@ -13,15 +13,15 @@ export default function ElectionResultView({
       <EDView
         key={"ed-view-LK"}
         edId={"LK"}
-        partyPct={electionResult.getLKPartyPct()}
+        partyPct={electionResult.getLKPct()}
         seats={electionResult.getNLSeats()}
         totalSeats={TOTAL_NATIONAL_LIST_SEATS}
       />
       {electionResult.getSortedEdIdList().map(function (edId) {
-        const partyPct = electionResult.getPartyPct(edId);
+        const partyPct = electionResult.getPct(edId);
 
-        const onChangePartyPct = function (partyPct) {
-          electionResult.setPartyPct(edId, partyPct);
+        const onChangePct = function (partyPct) {
+          electionResult.setPct(edId, partyPct);
           onChangeElectionResult(electionResult);
         };
 
@@ -36,7 +36,7 @@ export default function ElectionResultView({
             partyPct={partyPct}
             seats={seats}
             totalSeats={totalSeats}
-            onChangePartyPct={onChangePartyPct}
+            onChangePct={onChangePct}
           />
         );
       })}

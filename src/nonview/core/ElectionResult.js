@@ -7,16 +7,16 @@ import Seats from "../../nonview/core/Seats";
 const MIN_PCT_FOR_ED_SEATS = 0.05;
 
 export default class ElectionResult {
-  constructor(edToPartyPct) {
-    this.edToPartyPct = edToPartyPct;
+  constructor(edToPct) {
+    this.edToPct = edToPct;
   }
 
-  getPartyPct(edId) {
-    return this.edToPartyPct[edId];
+  getPct(edId) {
+    return this.edToPct[edId];
   }
 
-  setPartyPct(edId, partyPct) {
-    this.edToPartyPct[edId] = partyPct;
+  setPct(edId, partyPct) {
+    this.edToPct[edId] = partyPct;
   }
 
   getGroupToFieldToPct() {
@@ -30,7 +30,7 @@ export default class ElectionResult {
           (edToPctInv) =>
             Object.entries(edToPctInv).reduce(
               function (pct, [edId, pctInv]) {
-                return pct + pctInv * this.edToPartyPct[edId];
+                return pct + pctInv * this.edToPct[edId];
               }.bind(this),
               0
             )
@@ -38,20 +38,20 @@ export default class ElectionResult {
     );
   }
 
-  getLKPartyPct() {
-    return Object.entries(this.edToPartyPct).reduce(function (
-      lkPartyPct,
+  getLKPct() {
+    return Object.entries(this.edToPct).reduce(function (
+      lkPct,
       [edId, partyPct]
     ) {
       const edPct = ED_TO_PCT[edId];
-      return lkPartyPct + partyPct * edPct;
+      return lkPct + partyPct * edPct;
     },
     0);
   }
 
   getEDSeats(edId) {
     return Seats.computeSeats(
-      this.getPartyPct(edId),
+      this.getPct(edId),
       ED_IDX[edId].seats,
       MIN_PCT_FOR_ED_SEATS,
       1
@@ -60,7 +60,7 @@ export default class ElectionResult {
 
   getNLSeats() {
     return Seats.computeSeats(
-      this.getLKPartyPct(),
+      this.getLKPct(),
       TOTAL_NATIONAL_LIST_SEATS,
       0,
       0
@@ -69,7 +69,7 @@ export default class ElectionResult {
 
   getTotalSeats() {
     return (
-      Object.keys(this.edToPartyPct).reduce(
+      Object.keys(this.edToPct).reduce(
         function (totalEdSeats, edId) {
           return totalEdSeats + this.getEDSeats(edId);
         }.bind(this),
@@ -79,7 +79,7 @@ export default class ElectionResult {
   }
 
   getSortedEdIdList() {
-    return Object.keys(this.edToPartyPct);
+    return Object.keys(this.edToPct);
   }
 
   static fromDict(d) {

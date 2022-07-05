@@ -5,12 +5,12 @@ import Typography from "@mui/material/Typography";
 export default function PctSlider({
   label,
   partyPct,
-  onChangePartyPct,
+  onChangePct,
   color,
 }) {
-  const onChangePartyPctInner = function (e) {
-    if (onChangePartyPct) {
-      onChangePartyPct(e.target.value);
+  const onChangePctInner = function (e) {
+    if (onChangePct) {
+      onChangePct(e.target.value);
     }
   };
 
@@ -29,7 +29,7 @@ export default function PctSlider({
         max={1}
         value={partyPct}
         step={0.001}
-        onChange={onChangePartyPctInner}
+        onChange={onChangePctInner}
         sx={{ color }}
       />
       <Typography
