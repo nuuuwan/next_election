@@ -2,7 +2,7 @@ import IDX from "../../nonview/base/IDX";
 import { ED_IDX, TOTAL_NATIONAL_LIST_SEATS } from "../../nonview/core/ED";
 import GROUP_TO_FIELD_TO_PD_TO_PCT from "../../nonview/core/GROUP_TO_FIELD_TO_PD_TO_PCT";
 import GROUP_TO_FIELD_TO_PD_TO_PCT_INV from "../../nonview/core/GROUP_TO_FIELD_TO_PD_TO_PCT_INV";
-import {PD_LIST} from "../../nonview/core/PD";
+import { PD_LIST } from "../../nonview/core/PD";
 import Seats from "../../nonview/core/Seats";
 
 const MIN_PCT_FOR_ED_SEATS = 0.05;
@@ -11,8 +11,8 @@ export default class ElectionResult {
   static getEmptyPdToPct() {
     return IDX.build(
       PD_LIST,
-      pd => pd.pdId,
-      pd => 0,
+      (pd) => pd.pdId,
+      (pd) => 0
     );
   }
 
@@ -88,14 +88,13 @@ export default class ElectionResult {
               function (pct, [pdId, pctInv]) {
                 return pct + this.pdToPct[pdId] * pctInv;
               }.bind(this),
-              0,
+              0
             );
             return fieldToPct;
           }.bind(this),
           {}
         );
         return groupToFieldToPct;
-
       }.bind(this),
       this.groupToFieldToPct
     );
@@ -105,20 +104,21 @@ export default class ElectionResult {
 
   get edToPct() {
     return IDX.map(
-      GROUP_TO_FIELD_TO_PD_TO_PCT_INV['ED'],
-      edId => edId,
-      pdToPct => Object.entries(pdToPct).reduce(
-        function(pct, [pdId, pctInv]) {
-          return pct + pctInv * this.pdToPct[pdId];
-        }.bind(this),
-        0,
-      )
+      GROUP_TO_FIELD_TO_PD_TO_PCT_INV["ED"],
+      (edId) => edId,
+      (pdToPct) =>
+        Object.entries(pdToPct).reduce(
+          function (pct, [pdId, pctInv]) {
+            return pct + pctInv * this.pdToPct[pdId];
+          }.bind(this),
+          0
+        )
     );
   }
 
   get lkPct() {
     return Object.entries(this.pdToPct).reduce(function (lkPct, [pdId, pct]) {
-      return lkPct + GROUP_TO_FIELD_TO_PD_TO_PCT_INV['LK']['lk'][pdId] * pct;
+      return lkPct + GROUP_TO_FIELD_TO_PD_TO_PCT_INV["LK"]["lk"][pdId] * pct;
     }, 0);
   }
 

@@ -3,7 +3,7 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 
 import PctSlider from "../../view/atoms/PctSlider";
-import {ED_IDX} from "../../nonview/core/ED"
+import { ED_IDX } from "../../nonview/core/ED";
 import GROUP_TO_FIELD_TO_PD_TO_PCT from "../../nonview/core/GROUP_TO_FIELD_TO_PD_TO_PCT";
 import GROUP_TO_FIELD_TO_PD_TO_PCT_INV from "../../nonview/core/GROUP_TO_FIELD_TO_PD_TO_PCT_INV";
 
@@ -13,29 +13,29 @@ export default function GroupView({
   group,
   fieldToPct,
 }) {
-
-  const sortedFields = Object.entries(GROUP_TO_FIELD_TO_PD_TO_PCT[group]).map(
-    function([field, pdToPct]) {
-      const pctSum = Object.entries(pdToPct).reduce(
-        function(pctSum, [pdId, pct0]) {
-          return pctSum + pct0 * GROUP_TO_FIELD_TO_PD_TO_PCT_INV['LK']['lk'][pdId];
-        },
-        0,
-      );
+  const sortedFields = Object.entries(GROUP_TO_FIELD_TO_PD_TO_PCT[group])
+    .map(function ([field, pdToPct]) {
+      const pctSum = Object.entries(pdToPct).reduce(function (
+        pctSum,
+        [pdId, pct0]
+      ) {
+        return (
+          pctSum + pct0 * GROUP_TO_FIELD_TO_PD_TO_PCT_INV["LK"]["lk"][pdId]
+        );
+      },
+      0);
       return [field, pctSum];
-    }
-  ).sort(
-    function(a, b) {
+    })
+    .sort(function (a, b) {
       return b[1] - a[1];
-    }
-  ).map(x => x[0]);
-
+    })
+    .map((x) => x[0]);
 
   return (
     <Card sx={{ m: 1, p: 1, width: 300 }}>
       <Typography variant="subtitle1">{group}</Typography>
       {sortedFields.map(function (field) {
-        if (field === 'Other') {
+        if (field === "Other") {
           return null;
         }
         const pct = fieldToPct[field];
@@ -45,7 +45,7 @@ export default function GroupView({
         };
 
         let label = field;
-        if (group === 'ED') {
+        if (group === "ED") {
           label = ED_IDX[field].name;
         }
 

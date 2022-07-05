@@ -8,22 +8,22 @@ export default function PctSlider({ label, pct, onChangePct }) {
       onChangePct(e.target.value);
     }
   };
-  pct = Math.max(0,Math.min(1, pct));
+  pct = Math.max(0, Math.min(1, pct));
   let minimumFractionDigits = 1;
   if (pct > 0.1) {
     minimumFractionDigits = 0;
   }
 
   const light = 95 - pct * 95;
-  const color = `hsla(0,0%,${light}%,1.0)`
+  const color = `hsla(0,0%,${light}%,1.0)`;
 
   let pctStr = "-";
   if (pct > 0.001) {
-  pctStr = pct.toLocaleString(undefined, {
-    style: "percent",
-    minimumFractionDigits,
-  });
-}
+    pctStr = pct.toLocaleString(undefined, {
+      style: "percent",
+      minimumFractionDigits,
+    });
+  }
 
   return (
     <Stack direction="row">
