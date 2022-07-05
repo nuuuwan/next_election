@@ -2,12 +2,7 @@ import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-export default function PctSlider({
-  label,
-  partyPct,
-  onChangePct,
-  color,
-}) {
+export default function PctSlider({ label, partyPct, onChangePct, color }) {
   const onChangePctInner = function (e) {
     if (onChangePct) {
       onChangePct(e.target.value);

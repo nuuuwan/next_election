@@ -59,12 +59,7 @@ export default class ElectionResult {
   }
 
   getNLSeats() {
-    return Seats.computeSeats(
-      this.getLKPct(),
-      TOTAL_NATIONAL_LIST_SEATS,
-      0,
-      0
-    );
+    return Seats.computeSeats(this.getLKPct(), TOTAL_NATIONAL_LIST_SEATS, 0, 0);
   }
 
   getTotalSeats() {
