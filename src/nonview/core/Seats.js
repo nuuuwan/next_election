@@ -1,29 +1,25 @@
 export default class Seats {
-  static computeSeats(Pct, totalSeats, minPctForSeats, bonusSeats) {
-    if (Pct < minPctForSeats) {
+  static computeSeats(pct, totalSeats, minPctForSeats, bonusSeats) {
+    if (pct < minPctForSeats) {
       return 0;
     }
-    const otherPct = 1 - Pct;
-
     const totalSeatsNonBonus = totalSeats - bonusSeats;
 
-    const seatsFloat = totalSeatsNonBonus * Pct;
-    const seatsFloatOther = totalSeatsNonBonus * otherPct;
+    const seatsFloat = totalSeatsNonBonus * pct;
     const seatsInt = parseInt(seatsFloat);
-    const seatsIntOther = parseInt(seatsFloatOther);
     const seatsRem = seatsFloat - seatsInt;
-    const seatsRemOther = seatsFloatOther - seatsIntOther;
+
+    const seatsIntOther = parseInt(totalSeatsNonBonus - seatsFloat);
 
     let seats = seatsInt;
-
     const remSeats = totalSeatsNonBonus - seatsInt - seatsIntOther;
     if (remSeats > 0) {
-      if (seatsRem > seatsRemOther) {
+      if (seatsRem > Math.random()) {
         seats += 1;
       }
     }
 
-    if (Pct > otherPct) {
+    if (Math.pow(pct * 2, 2) > Math.random()) {
       seats += bonusSeats;
     }
 
