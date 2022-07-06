@@ -2,17 +2,13 @@
 
 * Fuzzy Warning
 * Slider Marks
-* Refresh to Zero Button
 
 
 # MEDIUM
 
 * Map Widget??? Dorling
+* DATA - Urban Rural
 
 # HIGH
-
-* Measure Efficiency
-* Improve Efficiency
-* Fix Odd/Edge cases
 
 # BIG PICTURE
