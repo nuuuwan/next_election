@@ -1,5 +1,6 @@
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
+
 import SeatView from "../../view/atoms/SeatView";
 
 export default function NationalView({ electionResult }) {
