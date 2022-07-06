@@ -7,7 +7,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AppColors from "./view/_constants/AppColors";
 import HomePage from "./view/pages/HomePage.js";
 
-const MIN_SCREEN_WIDTH = 1400;
+const MIN_SCREEN_WIDTH = 1200;
 
 const THEME = createTheme({
   palette: {
@@ -22,6 +22,7 @@ const THEME = createTheme({
     },
   },
   typography: {
+    fontSize: 12,
     fontFamily: [
       "Duru Sans",
       "Dosis",
