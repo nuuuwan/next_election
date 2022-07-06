@@ -1,11 +1,14 @@
 # LOW
 
-* Sort Districts by Seats / Population
-* Lock Icon for no-edit items
+* Fuzzy Warning
+* Slider Marks
+* Refresh to Zero Button
+
 
 # MEDIUM
 
-* Widget for Seats
+* Seat View large
+* Map Widget??? Dorling
 
 # HIGH
 
