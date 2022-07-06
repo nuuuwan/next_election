@@ -7,9 +7,12 @@
 
 # MEDIUM
 
-* Seat View large
 * Map Widget??? Dorling
 
 # HIGH
+
+* Measure Efficiency
+* Improve Efficiency
+* Fix Odd/Edge cases
 
 # BIG PICTURE
