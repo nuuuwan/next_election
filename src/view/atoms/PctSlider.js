@@ -1,6 +1,7 @@
 import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+
 import AppColors from "../../view/_constants/AppColors";
 
 export default function PctSlider({

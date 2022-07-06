@@ -1,4 +1,5 @@
 import Box from "@mui/material/Box";
+
 import AppColors from "../../view/_constants/AppColors";
 
 const CIRCLE_RADIUS = 10;

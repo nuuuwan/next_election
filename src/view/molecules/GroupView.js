@@ -33,13 +33,13 @@ export default function GroupView({
     .map((x) => x[0]);
 
   let groupTitle = group;
-  if (groupTitle === 'ED') {
-    groupTitle = 'Electoral District';
+  if (groupTitle === "ED") {
+    groupTitle = "Electoral District";
   }
-  if (groupTitle === 'LK') {
-    groupTitle = 'Islandwide';
+  if (groupTitle === "LK") {
+    groupTitle = "Islandwide";
   }
-  groupTitle = groupTitle.replace('Election', 'Parliamentary Election - Vote');
+  groupTitle = groupTitle.replace("Election", "Parliamentary Election - Vote");
 
   return (
     <Card sx={{ m: 1, p: 1, width: 300 }}>
@@ -66,7 +66,7 @@ export default function GroupView({
           label = ED_IDX[field].name;
         }
         if (label === "lk") {
-          label = 'Sri Lanka';
+          label = "Sri Lanka";
         }
 
         return (
