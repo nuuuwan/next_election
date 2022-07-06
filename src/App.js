@@ -17,6 +17,9 @@ const THEME = createTheme({
     secondary: {
       main: AppColors.Secondary,
     },
+    success: {
+      main: AppColors.Success,
+    },
   },
   typography: {
     fontFamily: [
