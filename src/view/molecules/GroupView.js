@@ -32,9 +32,20 @@ export default function GroupView({
     })
     .map((x) => x[0]);
 
+  let groupTitle = group;
+  if (groupTitle === 'ED') {
+    groupTitle = 'Electoral District';
+  }
+  if (groupTitle === 'LK') {
+    groupTitle = 'Islandwide';
+  }
+  groupTitle = groupTitle.replace('Election', 'Parliamentary Election - Vote');
+
   return (
     <Card sx={{ m: 1, p: 1, width: 300 }}>
-      <Typography variant="subtitle1">{group}</Typography>
+      <Typography variant="subtitle1" color="secondary">
+        {groupTitle}
+      </Typography>
       {sortedFields.map(function (field) {
         if (field === "Other") {
           return null;
@@ -53,6 +64,9 @@ export default function GroupView({
         let label = field;
         if (group === "ED") {
           label = ED_IDX[field].name;
+        }
+        if (label === "lk") {
+          label = 'Sri Lanka';
         }
 
         return (
