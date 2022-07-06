@@ -1,14 +1,13 @@
-import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
 import { ED_IDX } from "../../nonview/core/ED";
 import GROUP_TO_FIELD_TO_PD_TO_PCT from "../../nonview/core/GROUP_TO_FIELD_TO_PD_TO_PCT";
 import GROUP_TO_FIELD_TO_PD_TO_PCT_INV from "../../nonview/core/GROUP_TO_FIELD_TO_PD_TO_PCT_INV";
 
-import SeatCountView from "../../view/atoms/SeatCountView";
-
 import PctSlider from "../../view/atoms/PctSlider";
+import SeatCountView from "../../view/atoms/SeatCountView";
 
 export default function GroupView({
   electionResult,
@@ -44,7 +43,7 @@ export default function GroupView({
   groupTitle = groupTitle.replace("Election", "Parliamentary Election - Vote");
 
   return (
-    <Card sx={{ m: 1, p: 1, width: 320 }}>
+    <Card sx={{ m: 2, p: 2 }}>
       <Typography variant="subtitle1" color="secondary">
         {groupTitle}
       </Typography>
