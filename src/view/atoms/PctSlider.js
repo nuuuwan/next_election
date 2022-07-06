@@ -45,7 +45,7 @@ export default function PctSlider({
         max={1}
         value={pct2}
         step={0.001}
-        marks={[{ value: Math.sqrt(0.5) }]}
+        marks={MARKS}
         onChange={onChangePctInner}
         onChangeCommitted={onChangePctInnerCommitted}
         sx={{ color, marginLeft: 1, width: 120 }}

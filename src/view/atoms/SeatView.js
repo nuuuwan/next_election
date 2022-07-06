@@ -1,7 +1,9 @@
 import Box from "@mui/material/Box";
 
-import AppColors from "../../view/_constants/AppColors";
 import CommonX from "../../nonview/base/CommonX";
+
+import AppColors from "../../view/_constants/AppColors";
+
 const CIRCLE_RADIUS = 5;
 const CIRCLE_DIAM = CIRCLE_RADIUS * 2;
 const [N_X, N_Y] = [10, 23];
