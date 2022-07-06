@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 
 import I18N from "../../nonview/base/I18N";
 import URLContext from "../../nonview/base/URLContext";
+import ElectionResult from "../../nonview/core/ElectionResult";
 
 import CustomAppBar from "../../view/molecules/CustomAppBar";
 import HomePageBottomNavigation from "../../view/molecules/HomePageBottomNavigation";
@@ -23,8 +24,10 @@ export default class HomePage extends Component {
   constructor(props) {
     super(props);
     const context = this.getContext();
+    const electionResult = new ElectionResult();
     this.state = {
       context,
+      electionResult,
     };
     this.isComponentMounted = false;
     this.setContext(context);
@@ -56,19 +59,29 @@ export default class HomePage extends Component {
     this.setContext({ lang });
   }
 
+  onChangeElectionResult(electionResult) {
+    this.setState({ electionResult });
+  }
+
+  onClickClear() {
+    const electionResult = new ElectionResult();
+    this.setState({ electionResult });
+  }
+
   render() {
-    const { context } = this.state;
+    const { context, electionResult } = this.state;
     const key = "context-" + JSON.stringify(context);
 
     return (
       <Box key={key} sx={STYLE}>
         <CustomAppBar />
         <Box sx={STYLE_INNER}>
-          <DashboardPage />
+          <DashboardPage
+            electionResult={electionResult}
+            onChangeElectionResult={this.onChangeElectionResult.bind(this)}
+          />
         </Box>
-        <HomePageBottomNavigation
-          onSelectLanguage={this.onSelectLanguage.bind(this)}
-        />
+        <HomePageBottomNavigation onClickClear={this.onClickClear.bind(this)} />
       </Box>
     );
   }
