@@ -2,10 +2,11 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 
-import PctSlider from "../../view/atoms/PctSlider";
 import { ED_IDX } from "../../nonview/core/ED";
 import GROUP_TO_FIELD_TO_PD_TO_PCT from "../../nonview/core/GROUP_TO_FIELD_TO_PD_TO_PCT";
 import GROUP_TO_FIELD_TO_PD_TO_PCT_INV from "../../nonview/core/GROUP_TO_FIELD_TO_PD_TO_PCT_INV";
+
+import PctSlider from "../../view/atoms/PctSlider";
 
 export default function GroupView({
   electionResult,
