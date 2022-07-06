@@ -9,6 +9,10 @@ const AppColors = {
   ValidText: SriLankaColors.Muslim,
 
   Light: "#ccc",
+  Seat: SriLankaColors.Sinhala,
+
+  SliderH: 140,
+  SliderS: 21,
 };
 
 export default AppColors;
