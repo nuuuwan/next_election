@@ -6,8 +6,8 @@ import SeatView from "../../view/atoms/SeatView";
 export default function NationalView({ electionResult }) {
   const totalSeats = electionResult.getTotalSeats();
   return (
-    <Card sx={{ m: 2, p: 2, width: 250 }}>
-      <Typography variant="h4" color="primary">
+    <Card sx={{ m: 2, p: 2 }}>
+      <Typography variant="h6" color="primary">
         {totalSeats} Seats
       </Typography>
       <SeatView totalSeats={totalSeats} />
