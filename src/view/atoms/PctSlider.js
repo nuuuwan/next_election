@@ -1,8 +1,18 @@
 import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import CommonX from "../../nonview/base/CommonX"
 
 import AppColors from "../../view/_constants/AppColors";
+
+const SLIDER_EXP = 2;
+const MARKS = CommonX.range(10).map(
+  function (i) {
+    return {
+      value: Math.pow(i * 0.1, 1/ SLIDER_EXP),
+    }
+  }
+)
 
 export default function PctSlider({
   label,
@@ -12,7 +22,7 @@ export default function PctSlider({
 }) {
   const onChangePctInner = function (e) {
     const pct2 = e.target.value;
-    onChangePct(Math.pow(pct2, 2));
+    onChangePct(Math.pow(pct2, SLIDER_EXP));
   };
 
   const onChangePctInnerCommitted = function () {
@@ -20,9 +30,18 @@ export default function PctSlider({
   };
 
   pct = Math.max(0, Math.min(1, pct));
-  let minimumFractionDigits = 1;
+  let minimumFractionDigits = 2;
+  if (pct > 0.2) {
+    minimumFractionDigits = 0;
+  }
+  else if (pct > 0.02) {
+    minimumFractionDigits = 1;
+  }
 
-  const light = 95 - Math.sqrt(pct) * (95 - 35);
+
+  const pct2 = Math.pow(pct, 1/ SLIDER_EXP);
+
+  const light = 95 - pct2 * (95 - 35);
   const color = `hsla(${AppColors.SliderH},${AppColors.SliderS}%,${light}%,1.0)`;
 
   let pctStr = "-";
@@ -33,7 +52,7 @@ export default function PctSlider({
     });
   }
 
-  const pct2 = Math.sqrt(pct);
+
 
   return (
     <Stack direction="row">
