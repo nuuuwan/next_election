@@ -1,30 +1,23 @@
 import Box from "@mui/material/Box";
 
 import AppColors from "../../view/_constants/AppColors";
-
-const CIRCLE_RADIUS = 10;
+import CommonX from "../../nonview/base/CommonX";
+const CIRCLE_RADIUS = 5;
 const CIRCLE_DIAM = CIRCLE_RADIUS * 2;
 const [N_X, N_Y] = [10, 23];
-const [WIDTH, HEIGHT] = [1.2 * N_X * CIRCLE_DIAM, 2 * N_Y * CIRCLE_DIAM];
+const [WIDTH, HEIGHT] = [N_X * CIRCLE_DIAM, 1.5 * N_Y * CIRCLE_DIAM];
 const MAX_SEATS = 225;
-
-function range(n) {
-  return Array.from(Array(n).keys());
-}
 
 export default function SeatView({ totalSeats }) {
   let offset = 0;
   return (
-    <Box
-      key={"seat-view-" + totalSeats}
-      sx={{ width: WIDTH, height: HEIGHT, m: 2 }}
-    >
+    <Box key={"seat-view-" + totalSeats}>
       <svg width={WIDTH} height={HEIGHT}>
-        {range(N_Y).map(function (iy) {
+        {CommonX.range(N_Y).map(function (iy) {
           if (iy % 5 === 0) {
             offset += 0.5;
           }
-          return range(N_X).map(function (ix) {
+          return CommonX.range(N_X).map(function (ix) {
             const i = ix + iy * N_X;
             if (i >= MAX_SEATS) {
               return null;
