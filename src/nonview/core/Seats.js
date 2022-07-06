@@ -14,12 +14,12 @@ export default class Seats {
     let seats = seatsInt;
     const remSeats = totalSeatsNonBonus - seatsInt - seatsIntOther;
     if (remSeats > 0) {
-      if (seatsRem > Math.random()) {
+      if (seatsRem > 0.5) {
         seats += 1;
       }
     }
 
-    if (Math.pow(pct * 2, 2) > Math.random()) {
+    if (Math.pow(pct * 2, 2) > 0.5) {
       seats += bonusSeats;
     }
 
