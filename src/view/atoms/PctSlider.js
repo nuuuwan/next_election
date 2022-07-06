@@ -34,7 +34,7 @@ export default function PctSlider({ label, pct, onChangePct }) {
         min={0}
         max={1}
         value={pct}
-        step={0.001}
+        step={0.01}
         onChange={onChangePctInner}
         sx={{ color, width: 100 }}
       />
