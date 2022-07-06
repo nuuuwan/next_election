@@ -1,6 +1,7 @@
 import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import AppColors from "../../view/_constants/AppColors";
 
 export default function PctSlider({
   label,
@@ -22,8 +23,8 @@ export default function PctSlider({
     minimumFractionDigits = 0;
   }
 
-  const light = 95 - Math.sqrt(pct) * 95;
-  const color = `hsla(0,0%,${light}%,1.0)`;
+  const light = 95 - Math.sqrt(pct) * (95 - 35);
+  const color = `hsla(${AppColors.SliderH},${AppColors.SliderS}%,${light}%,1.0)`;
 
   let pctStr = "-";
   if (pct > 0.001) {
