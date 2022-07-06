@@ -2,12 +2,20 @@ import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-export default function PctSlider({ label, pct, onChangePct }) {
+export default function PctSlider({
+  label,
+  pct,
+  onChangePct,
+  onChangePctCommitted,
+}) {
   const onChangePctInner = function (e) {
-    if (onChangePct) {
-      onChangePct(e.target.value);
-    }
+    onChangePct(e.target.value);
   };
+
+  const onChangePctInnerCommitted = function () {
+    onChangePctCommitted(pct);
+  };
+
   pct = Math.max(0, Math.min(1, pct));
   let minimumFractionDigits = 1;
   if (pct > 0.1) {
@@ -36,6 +44,7 @@ export default function PctSlider({ label, pct, onChangePct }) {
         value={pct}
         step={0.01}
         onChange={onChangePctInner}
+        onChangeCommitted={onChangePctInnerCommitted}
         sx={{ color, width: 100 }}
       />
       <Typography

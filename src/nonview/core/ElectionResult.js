@@ -32,6 +32,7 @@ export default class ElectionResult {
   constructor(pdToPct) {
     this.pdToPct = ElectionResult.getEmptyPdToPct();
     this.groupToFieldToPct = ElectionResult.getEmptyGroupToFieldToPct();
+    this.tmpOldPct = null;
   }
 
   movePdPct(pdId, newPct) {
@@ -56,10 +57,18 @@ export default class ElectionResult {
     );
   }
 
+  storeOldPct(group, field, newPct) {
+    if (this.tmpOldPct === null) {
+      this.tmpOldPct = this.groupToFieldToPct[group][field];
+    }
+    this.groupToFieldToPct[group][field] = newPct;
+  }
+
   moveGroupFieldPct(group, field, newPct) {
-    const oldPct = this.groupToFieldToPct[group][field];
+    const oldPct = this.tmpOldPct;
     const dPct = newPct - oldPct;
     this.groupToFieldToPct[group][field] = newPct;
+    this.tmpOldPct = null;
 
     this.pdToPct = Object.entries(this.pdToPct).reduce(function (
       pdToPct,

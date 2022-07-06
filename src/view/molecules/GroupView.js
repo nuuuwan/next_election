@@ -41,6 +41,11 @@ export default function GroupView({
         }
         const pct = fieldToPct[field];
         const onChangePct = function (pct) {
+          electionResult.storeOldPct(group, field, pct);
+          onChangeElectionResult(electionResult);
+        };
+
+        const onChangePctCommitted = function (pct) {
           electionResult.moveGroupFieldPct(group, field, pct);
           onChangeElectionResult(electionResult);
         };
@@ -57,6 +62,7 @@ export default function GroupView({
               key={"pct-slider_" + field}
               pct={pct}
               onChangePct={onChangePct}
+              onChangePctCommitted={onChangePctCommitted}
             />
           </Box>
         );
